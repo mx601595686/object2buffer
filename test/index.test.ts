@@ -14,7 +14,7 @@ it('测试序列化', function () {
         undefined,
         new Date(1234),
         /abc/g,
-        Buffer.from('buffer'),
+        o2b.NodeBuffer.from('buffer'),
         new Blob(['blob']),
         dataView,
         new ArrayBuffer(10),
@@ -28,7 +28,7 @@ it('测试序列化', function () {
             undefined,
             new Date,
             /abc/g,
-            Buffer.from('buffer'),
+            o2b.NodeBuffer.from('buffer'),
             new Blob(['blob']),
             dataView,
             new ArrayBuffer(10),
@@ -45,7 +45,7 @@ it('测试序列化', function () {
             g: undefined,
             h: new Date,
             i: /abc/g,
-            j: Buffer.from('buffer'),
+            j: o2b.NodeBuffer.from('buffer'),
             k: new Blob(['blob']),
             l: dataView,
             m: new ArrayBuffer(10),
@@ -61,7 +61,7 @@ it('测试序列化', function () {
 it('测试反序列化', function () {
     const testData: any = o2b.deserialize(serialized);
 
-    const dataView = Buffer.alloc(8);
+    const dataView = o2b.NodeBuffer.alloc(8);
     dataView.writeDoubleBE(123456, 0);
 
     expect(testData[0]).to.be(1);
@@ -73,11 +73,11 @@ it('测试反序列化', function () {
     expect(testData[6]).to.be(undefined);
     expect(testData[7].getTime()).to.be(1234);
     expect(testData[8].toString()).to.be('/abc/g');
-    expect(Buffer.from('buffer').equals(testData[9])).to.be.ok();
-    expect(Buffer.from('blob').equals(testData[10])).to.be.ok();
+    expect(o2b.NodeBuffer.from('buffer').equals(testData[9])).to.be.ok();
+    expect(o2b.NodeBuffer.from('blob').equals(testData[10])).to.be.ok();
     expect(dataView.equals(testData[11])).to.be.ok();
-    expect(Buffer.alloc(10).equals(testData[12])).to.be.ok();
-    expect(Buffer.alloc(10).fill(1).equals(testData[13])).to.be.ok();
+    expect(o2b.NodeBuffer.alloc(10).equals(testData[12])).to.be.ok();
+    expect(o2b.NodeBuffer.alloc(10).fill(1).equals(testData[13])).to.be.ok();
     expect(testData[14]).to.be(undefined);
 
     expect(testData[15][0]).to.be(1);
@@ -89,11 +89,11 @@ it('测试反序列化', function () {
     expect(testData[15][6]).to.be(undefined);
     expect(testData[15][7].getTime()).to.be(1234);
     expect(testData[15][8].toString()).to.be('/abc/g');
-    expect(Buffer.from('buffer').equals(testData[15][9])).to.be.ok();
-    expect(Buffer.from('blob').equals(testData[15][10])).to.be.ok();
+    expect(o2b.NodeBuffer.from('buffer').equals(testData[15][9])).to.be.ok();
+    expect(o2b.NodeBuffer.from('blob').equals(testData[15][10])).to.be.ok();
     expect(dataView.equals(testData[15][11])).to.be.ok();
-    expect(Buffer.alloc(10).equals(testData[15][12])).to.be.ok();
-    expect(Buffer.alloc(10).fill(1).equals(testData[15][13])).to.be.ok();
+    expect(o2b.NodeBuffer.alloc(10).equals(testData[15][12])).to.be.ok();
+    expect(o2b.NodeBuffer.alloc(10).fill(1).equals(testData[15][13])).to.be.ok();
     expect(testData[15][14]).to.be(undefined);
 
     expect(testData[16]['a']).to.be(1);
@@ -105,14 +105,14 @@ it('测试反序列化', function () {
     expect(testData[16]['g']).to.be(undefined);
     expect(testData[16]['h'].getTime()).to.be(1234);
     expect(testData[16]['i'].toString()).to.be('/abc/g');
-    expect(Buffer.from('buffer').equals(testData[16]['j'])).to.be.ok();
-    expect(Buffer.from('blob').equals(testData[16]['k'])).to.be.ok();
+    expect(o2b.NodeBuffer.from('buffer').equals(testData[16]['j'])).to.be.ok();
+    expect(o2b.NodeBuffer.from('blob').equals(testData[16]['k'])).to.be.ok();
     expect(dataView.equals(testData[16]['l'])).to.be.ok();
-    expect(Buffer.alloc(10).equals(testData[16]['m'])).to.be.ok();
-    expect(Buffer.alloc(10).fill(1).equals(testData[16]['n'])).to.be.ok();
+    expect(o2b.NodeBuffer.alloc(10).equals(testData[16]['m'])).to.be.ok();
+    expect(o2b.NodeBuffer.alloc(10).fill(1).equals(testData[16]['n'])).to.be.ok();
     expect(testData[16]['o']).to.be(undefined);
 });
 
 it('测试序列化，不是由o2b生成的buffer', function () {
-    expect(o2b.deserialize).withArgs(Buffer.alloc(123)).to.throwException();
+    expect(o2b.deserialize).withArgs(o2b.NodeBuffer.alloc(123)).to.throwException();
 });

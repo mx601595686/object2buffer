@@ -12,6 +12,23 @@
             "args": [
                 "${workspaceRoot}/test/server.ts"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "测试调试",
+            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "-u",
+                "tdd",
+                "--timeout",
+                "999999",
+                "--colors",
+                "--compilers",
+                "ts:ts-node/register,tsx:ts-node/register",
+                "${workspaceRoot}/test/index.test.ts"
+            ],
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }
