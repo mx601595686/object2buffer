@@ -1,6 +1,6 @@
 /**
  * 可以进行序列化的数据类型   
- * 注意：TypedBuffer、Blob、ArrayBuffer、DataView都会被转换成node的Buffer
+ * 注意：TypedBuffer、ArrayBuffer、DataView都会被转换成node的Buffer
  * 
  * @export
  * @enum {number}
@@ -28,7 +28,6 @@ export type _basedt =
     Date |
     RegExp |
     Buffer |
-    Blob |
     DataView |
     ArrayBuffer |
     Int8Array |

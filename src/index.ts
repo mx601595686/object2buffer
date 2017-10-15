@@ -1,8 +1,8 @@
 import { dataType, DataType } from './DataType';
-const blobToNodeBuffer = require('blob-to-buffer');
 const typedArrayToNodeBuffer = require("typedarray-to-buffer");
 const isNode = require('is-node');
 
+export const blobToNodeBuffer = require('blob-to-buffer');
 export const isNodeBuffer: (data: Buffer) => boolean = require('is-buffer');
 export const nodeBufferToArraybuffer: (data: Buffer) => ArrayBuffer = require('to-arraybuffer');
 export const NodeBuffer: typeof Buffer = isNode ? Buffer : require('buffer/').Buffer;
@@ -121,17 +121,6 @@ export function serialize(data: dataType[]): Buffer {
         case isNodeBuffer(item): {
             const type = NodeBuffer.alloc(1);
             const content = item;
-            const contentLength = NodeBuffer.alloc(8);
-
-            type.writeUInt8(DataType.Buffer, 0);
-            contentLength.writeDoubleBE(content.length, 0);
-
-            bufferItems.push(type, contentLength, content);
-            break;
-        }
-        case '[object Blob]': {
-            const type = NodeBuffer.alloc(1);
-            const content = blobToNodeBuffer(item);
             const contentLength = NodeBuffer.alloc(8);
 
             type.writeUInt8(DataType.Buffer, 0);

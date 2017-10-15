@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { dataType } from './DataType';
+export declare const blobToNodeBuffer: any;
 export declare const isNodeBuffer: (data: Buffer) => boolean;
 export declare const nodeBufferToArraybuffer: (data: Buffer) => ArrayBuffer;
 export declare const NodeBuffer: typeof Buffer;
