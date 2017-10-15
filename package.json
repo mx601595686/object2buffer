@@ -1,0 +1,54 @@
+{
+    "name": "object2buffer",
+    "version": "0.0.1",
+    "description": "Simply serialize object into binary. Support browser",
+    "main": "./bin/index.js",
+    "types": "./bin/index.d.ts",
+    "scripts": {
+        "compile": "gulp compile"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mx601595686/object2buffer.git"
+    },
+    "keywords": [
+        "object",
+        "2",
+        "to",
+        "buffer"
+    ],
+    "author": "wujingtao",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mx601595686/object2buffer/issues"
+    },
+    "homepage": "https://github.com/mx601595686/object2buffer#readme",
+    "devDependencies": {
+        "@types/expect.js": "^0.3.29",
+        "@types/fs-extra": "^4.0.2",
+        "@types/mocha": "^2.2.40",
+        "@types/opener": "^1.4.0",
+        "@types/webpack": "^3.0.10",
+        "@types/memory-fs": "^0.3.0",
+        "memory-fs": "^0.4.1",
+        "expect.js": "^0.3.1",
+        "fs-extra": "^4.0.2",
+        "gulp": "^3.9.1",
+        "gulp-sourcemaps": "^2.4.1",
+        "gulp-typescript": "^3.1.5",
+        "mocha": "^3.2.0",
+        "opener": "^1.4.3",
+        "ts-loader": "^2.3.7",
+        "ts-node": "^3.0.4",
+        "typescript": "^2.5.2",
+        "webpack": "^3.6.0"
+    },
+    "dependencies": {
+        "@types/node": "^7.0.13",
+        "is-buffer": "^1.1.5",
+        "blob-to-buffer": "^1.2.6",
+        "to-arraybuffer": "^1.0.1",
+        "typedarray-to-buffer": "^3.1.2",
+        "buffer": "^5.0.7"
+    }
+}
