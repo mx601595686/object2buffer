@@ -1,10 +1,11 @@
 import { dataType, DataType } from './DataType';
 const blobToNodeBuffer = require('blob-to-buffer');
 const typedArrayToNodeBuffer = require("typedarray-to-buffer");
+const isNode = require('is-node');
 
 export const isNodeBuffer: (data: Buffer) => boolean = require('is-buffer');
 export const nodeBufferToArraybuffer: (data: Buffer) => ArrayBuffer = require('to-arraybuffer');
-export const NodeBuffer: typeof Buffer = Buffer !== undefined ? Buffer : require('buffer/').Buffer;
+export const NodeBuffer: typeof Buffer = isNode ? Buffer : require('buffer/').Buffer;
 
 /**
  * 序列化标记，标记一个Buffer是object2buffer序列化的结果
@@ -179,10 +180,11 @@ export function serialize(data: dataType[]): Buffer {
  * 注意：传入的Buffer需是使用是object2buffer序列化产生的
  */
 export function deserialize(data: Buffer): dataType[] {
-    if (!data.slice(0, _serializeMark.length).equals(_serializeMark))
+    let previous = 0;
+
+    if (!data.slice(0, previous += _serializeMark.length).equals(_serializeMark))
         throw new Error('传入的Buffer并不是由object2buffer序列化产生的，无法进行反序列化');
 
-    let previous = 0;
     const result = [];
 
     while (previous < data.length) {
@@ -225,10 +227,10 @@ export function deserialize(data: Buffer): dataType[] {
             case DataType.RegExp: {
                 const sourceContentLength = data.readDoubleBE(previous);
                 previous += 8;
-                const sourceContent = data.slice(previous, previous += length);
+                const sourceContent = data.slice(previous, previous += sourceContentLength);
                 const flagsContentLength = data.readDoubleBE(previous);
                 previous += 8;
-                const flagsContent = data.slice(previous, previous += length);
+                const flagsContent = data.slice(previous, previous += flagsContentLength);
 
                 result.push(new RegExp(sourceContent.toString(), flagsContent.toString()));
                 break;
@@ -263,7 +265,7 @@ export function deserialize(data: Buffer): dataType[] {
                 result.push(data.slice(previous, previous += length));
                 break;
             }
-            case DataType.unknow:{
+            case DataType.unknow: {
                 result.push(undefined);
                 break;
             }

@@ -1,5 +1,7 @@
 import expect = require('expect.js');
 import * as o2b from '../';
+const isNode = require('is-node');
+const _Blob: typeof Blob = isNode ? <any>(function (arg: string[]) { return o2b.NodeBuffer.from(arg.join('')) }) : Blob;
 
 let serialized: Buffer;
 
@@ -15,7 +17,7 @@ it('测试序列化', function () {
         new Date(1234),
         /abc/g,
         o2b.NodeBuffer.from('buffer'),
-        new Blob(['blob']),
+        new _Blob(['blob']),
         dataView,
         new ArrayBuffer(10),
         (new Uint32Array(10)).fill(1),
@@ -26,10 +28,10 @@ it('测试序列化', function () {
             true, false,
             null,
             undefined,
-            new Date,
+            new Date(1234),
             /abc/g,
             o2b.NodeBuffer.from('buffer'),
-            new Blob(['blob']),
+            new _Blob(['blob']),
             dataView,
             new ArrayBuffer(10),
             (new Uint32Array(10)).fill(1),
@@ -43,10 +45,10 @@ it('测试序列化', function () {
             e: false,
             f: null,
             g: undefined,
-            h: new Date,
+            h: new Date(1234),
             i: /abc/g,
             j: o2b.NodeBuffer.from('buffer'),
-            k: new Blob(['blob']),
+            k: new _Blob(['blob']),
             l: dataView,
             m: new ArrayBuffer(10),
             n: (new Uint32Array(10)).fill(1),
@@ -77,7 +79,7 @@ it('测试反序列化', function () {
     expect(o2b.NodeBuffer.from('blob').equals(testData[10])).to.be.ok();
     expect(dataView.equals(testData[11])).to.be.ok();
     expect(o2b.NodeBuffer.alloc(10).equals(testData[12])).to.be.ok();
-    expect(o2b.NodeBuffer.alloc(10).fill(1).equals(testData[13])).to.be.ok();
+    expect(o2b.NodeBuffer.from((new Uint32Array(10)).fill(1).buffer).equals(testData[13])).to.be.ok();
     expect(testData[14]).to.be(undefined);
 
     expect(testData[15][0]).to.be(1);
@@ -93,7 +95,7 @@ it('测试反序列化', function () {
     expect(o2b.NodeBuffer.from('blob').equals(testData[15][10])).to.be.ok();
     expect(dataView.equals(testData[15][11])).to.be.ok();
     expect(o2b.NodeBuffer.alloc(10).equals(testData[15][12])).to.be.ok();
-    expect(o2b.NodeBuffer.alloc(10).fill(1).equals(testData[15][13])).to.be.ok();
+    expect(o2b.NodeBuffer.from((new Uint32Array(10)).fill(1).buffer).equals(testData[15][13])).to.be.ok();
     expect(testData[15][14]).to.be(undefined);
 
     expect(testData[16]['a']).to.be(1);
@@ -109,7 +111,7 @@ it('测试反序列化', function () {
     expect(o2b.NodeBuffer.from('blob').equals(testData[16]['k'])).to.be.ok();
     expect(dataView.equals(testData[16]['l'])).to.be.ok();
     expect(o2b.NodeBuffer.alloc(10).equals(testData[16]['m'])).to.be.ok();
-    expect(o2b.NodeBuffer.alloc(10).fill(1).equals(testData[16]['n'])).to.be.ok();
+    expect(o2b.NodeBuffer.from((new Uint32Array(10)).fill(1).buffer).equals(testData[16]['n'])).to.be.ok();
     expect(testData[16]['o']).to.be(undefined);
 });
 

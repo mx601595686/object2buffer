@@ -1,6 +1,6 @@
 {
     "name": "object2buffer",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Simply serialize object into binary. Support browser",
     "main": "./bin/index.js",
     "types": "./bin/index.d.ts",
@@ -46,10 +46,11 @@
     },
     "dependencies": {
         "@types/node": "^7.0.13",
-        "is-buffer": "^1.1.5",
         "blob-to-buffer": "^1.2.6",
+        "buffer": "^5.0.7",
+        "is-buffer": "^1.1.5",
         "to-arraybuffer": "^1.0.1",
         "typedarray-to-buffer": "^3.1.2",
-        "buffer": "^5.0.7"
+        "is-node": "1.0.2"
     }
 }
