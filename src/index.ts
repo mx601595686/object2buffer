@@ -1,10 +1,32 @@
 import { dataType, DataType } from './DataType';
 const typedArrayToNodeBuffer = require("typedarray-to-buffer");
 const isNode = require('is-node');
+const blob2buffer = require('blob-to-buffer');
 
-export const blobToNodeBuffer = require('blob-to-buffer');
-export const isNodeBuffer: (data: Buffer) => boolean = require('is-buffer');
+/**
+ * 将Blob转换为node Buffer
+ */
+export function blobToNodeBuffer(data: Blob): Promise<Buffer> {
+    return new Promise((resolve, reject) => {
+        blob2buffer(data, function (err: Error, buffer: Buffer) {
+            err ? reject(err) : resolve(buffer);
+        });
+    });
+}
+
+/**
+ * 是不是node Buffer
+ */
+export const isNodeBuffer: (data: any) => boolean = require('is-buffer');
+
+/**
+ * node Buffer转Arraybuffer
+ */
 export const nodeBufferToArraybuffer: (data: Buffer) => ArrayBuffer = require('to-arraybuffer');
+
+/**
+ * node Buffer
+ */
 export const NodeBuffer: typeof Buffer = isNode ? Buffer : require('buffer/').Buffer;
 
 /**

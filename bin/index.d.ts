@@ -1,8 +1,20 @@
 /// <reference types="node" />
 import { dataType } from './DataType';
-export declare const blobToNodeBuffer: any;
-export declare const isNodeBuffer: (data: Buffer) => boolean;
+/**
+ * 将Blob转换为node Buffer
+ */
+export declare function blobToNodeBuffer(data: Blob): Promise<Buffer>;
+/**
+ * 是不是node Buffer
+ */
+export declare const isNodeBuffer: (data: any) => boolean;
+/**
+ * node Buffer转Arraybuffer
+ */
 export declare const nodeBufferToArraybuffer: (data: Buffer) => ArrayBuffer;
+/**
+ * node Buffer
+ */
 export declare const NodeBuffer: typeof Buffer;
 /**
  * 序列化标记，标记一个Buffer是object2buffer序列化的结果
