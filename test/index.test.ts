@@ -110,3 +110,47 @@ it('测试反序列化', function () {
 it('测试序列化，不是由o2b生成的buffer', function () {
     expect(o2b.deserialize).withArgs(o2b.NodeBuffer.alloc(123)).to.throwException();
 });
+
+describe('序列化、反序列化速度以及文件大小对比', function () {
+
+    let data = [
+        1, 0.123,
+        'test',
+        true, false,
+        null,
+        [
+            1, 0.123,
+            'test',
+            true, false,
+            null,
+        ],
+        {
+            a: 1,
+            b: 0.123,
+            c: 'test',
+            d: true,
+            e: false,
+            f: null,
+        }
+    ];
+
+    it('o2b', function () {
+        console.time('o2b time');
+
+        const result = o2b.serialize(data);
+        console.log('o2b size:', result.length);
+        expect(o2b.deserialize(result)).to.eql(data);
+
+        console.timeEnd('o2b time');
+    });
+
+    it('JSON.stringify', function () {
+        console.time('JSON.stringify time');
+
+        const result = JSON.stringify(data);
+        console.log('JSON.stringify size:', Buffer.from(result).length);
+        expect(JSON.parse(result)).to.eql(data);
+
+        console.timeEnd('JSON.stringify time');
+    });
+});
