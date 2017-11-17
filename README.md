@@ -1,3 +1,6 @@
+# Deprecated
+使用[msgpack](https://msgpack.org/)来替代
+
 # object2buffer
 序列化对象到Buffer,支持浏览器。
 
